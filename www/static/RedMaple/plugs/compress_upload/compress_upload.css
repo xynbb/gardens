@@ -1,0 +1,7 @@
+@CHARSET "UTF-8";
+.compress_upload{float: left;}
+.cu_progress{float: left;overflow: hidden;background:#def3f6;padding: 5px;margin-left: 10px;}
+.cu_progress .box{float: left;border: 1px solid #999;width: 200px;height: 9px;}
+.cu_progress .sider{background: none repeat scroll 0% 0% rgb(0, 164, 227); height: 9px; width: 0%;}
+.cu_progress .text{float: left;height: 9px;line-height: 9px;}
+.cu_progress .fileName{width: 100%;height: 14px;overflow:hidden;clear:both;line-height: 14px;}
