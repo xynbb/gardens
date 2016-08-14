@@ -33,7 +33,7 @@
 
 <body style="background:url(/static/theme/images/topbg.gif) repeat-x;">
 <div class="topleft">
-    <img src="/static/theme/images/logo.png" title="系统首页" />
+    <!--<img src="/static/theme/images/logo.png" title="系统首页" />-->
 </div>
 
 <ul class="nav">
