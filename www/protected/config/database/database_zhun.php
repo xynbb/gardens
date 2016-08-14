@@ -12,4 +12,3 @@ $db['db_w']['username'] 			= 'L42Bhq4pyz0/2VxyaQ==';
 $db['db_w']['password'] 			= 'fNqO0K4kz2E0yFN+bLZwfb3V3V8=';
 $db['db_w']['charset'] 				= 'utf8';
 $db['db_w']['enableProfiling'] 		= true;
-  
