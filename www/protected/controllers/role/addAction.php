@@ -2,7 +2,7 @@
 class addAction extends Action {
     
     public function run($id=0){
-        
+        var_dump($_REQUEST);
         if($this->_isAjax())
         {
            $this->save();

@@ -40,7 +40,6 @@
 <div  style="margin-top: 410px">
     <div class="xline"></div>
     <br>
-    <center><?php echo date('Y');?>&copy;飞马大宗投资有限公司 版权所有<center>
 </div>
 </body>
 
