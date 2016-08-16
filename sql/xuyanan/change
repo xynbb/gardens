@@ -62,6 +62,7 @@ CREATE TABLE `services` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='服务';
 
 
+
 CREATE TABLE `grave` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '编号',
   `garden_id`int(11) unsigned NOT NULL DEFAULT '0' COMMENT '园id',
@@ -118,3 +119,4 @@ CREATE TABLE `supplier` (
   `update_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '修改时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='供应商表';
+
