@@ -120,3 +120,23 @@ CREATE TABLE `supplier` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='供应商表';
 
+
+
+CREATE TABLE `grave_card` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `customer_id` int(11) UNSIGNED NOT NULL DEFAULT '0' COMMENT '客户id',
+  `grave_id` int(11) UNSIGNED NOT NULL DEFAULT '0' COMMENT '墓位id',
+  `grave_name` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '墓位名称',
+  `type` tinyint(1) NOT NULL DEFAULT '1' COMMENT '类型(1新用户办理,2到期续办,3挂失补办)',
+  `code` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '编码',
+  `start_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '开始时间',
+  `end_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '结束时间',
+  `price` decimal(10,2) unsigned NOT NULL DEFAULT '0.00' COMMENT '价格',
+  `note` text CHARACTER SET utf8 COMMENT '描述',
+  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '数据状态(-1删除,0禁用,1正常)',
+  `create_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
+  `update_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '修改时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='墓权证表';
+
+
