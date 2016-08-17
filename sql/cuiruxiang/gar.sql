@@ -16,8 +16,6 @@ CREATE TABLE `deader` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='逝者表';
 
-
-
 CREATE TABLE `customer` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键id',
   `tomb_id` int(11) NOT NULL DEFAULT '0' COMMENT '墓位id',
@@ -38,5 +36,14 @@ CREATE TABLE `customer` (
   `update_time` int(10) NOT NULL DEFAULT '0' COMMENT '更新时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='客户表';
+
+CREATE TABLE `bury` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键id',
+  `name` varchar(50) NOT NULL DEFAULT '' COMMENT '名称',
+  `is_del` tinyint(1) NOT NULL DEFAULT '1' COMMENT '-1 删除 1 正常',
+  `create_time` int(10) NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `note` text NOT NULL COMMENT '备注',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='安葬方式';
 
 
