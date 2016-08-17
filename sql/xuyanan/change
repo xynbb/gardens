@@ -140,3 +140,18 @@ CREATE TABLE `grave_card` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='墓权证表';
 
 
+CREATE TABLE `config` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `name` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '名称',
+  `code` varchar(20) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '识别码',
+  `value` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '值',
+  `parent_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '上级id',
+  `price` decimal(10,2) unsigned NOT NULL DEFAULT '0.00' COMMENT '价格',
+  `note` text CHARACTER SET utf8 COMMENT '描述',
+  `sort` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '排序',
+  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '状态(-1删除,0禁用,1正常)',
+  `create_time` datetime NOT NULL COMMENT '创建时间',
+  `update_time` datetime NOT NULL COMMENT '修改时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='配置表';
+
