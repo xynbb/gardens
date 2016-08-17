@@ -46,4 +46,14 @@ CREATE TABLE `bury` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='安葬方式';
 
-
+CREATE TABLE `notices` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键id',
+  `title` varchar(150) NOT NULL DEFAULT '' COMMENT '标题',
+  `create_time` int(10) NOT NULL DEFAULT '0' COMMENT '登记时间',
+  `put_name` varchar(100) NOT NULL DEFAULT '' COMMENT '发布人',
+  `put_id` int(11) NOT NULL DEFAULT '0' COMMENT '发布人id',
+  `accept_name` varchar(100) NOT NULL DEFAULT '' COMMENT '接收人名称',
+  `acept_id` int(11) NOT NULL DEFAULT '-1' COMMENT '-1 所有人 ',
+  `content` text NOT NULL COMMENT '内容',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='通知公告';
