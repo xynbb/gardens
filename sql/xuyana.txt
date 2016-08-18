@@ -1,0 +1,332 @@
+CREATE TABLE `garden` (
+`id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号',
+`name` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '名称',
+`sort` smallint(5) NOT NULL DEFAULT '0' COMMENT '排序',
+`status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '状态(-1删除,0禁用,1正常)',
+`create_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
+`update_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '修改时间',
+		PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='园表';
+
+CREATE TABLE `area` (
+`id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号',
+`garden_id` int(11) NOT NULL DEFAULT '0' COMMENT '园id',
+`name` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '名称',
+`sort` smallint(5) NOT NULL DEFAULT '0' COMMENT '排序',
+`status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '状态(-1删除,0禁用,1正常)',
+`create_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
+`update_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '修改时间',
+		PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='区表';
+
+CREATE TABLE `rows` (
+`id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号',
+`garden_id` int(11) NOT NULL DEFAULT '0' COMMENT '园id',
+`area_id` int(11) NOT NULL DEFAULT '0' COMMENT '区id',
+`name` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '名称',
+`sort` smallint(5) NOT NULL DEFAULT '0' COMMENT '排序',
+`status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '状态(-1删除,0禁用,1正常)',
+`create_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
+`update_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '修改时间',
+		PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='排表';
+
+
+CREATE TABLE `vitrotype` (
+`id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '编号',
+`name` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '瓷像别名',
+`norms_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '规格id',
+`shape_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '形状id',
+`color_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '颜色id',
+`type_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '类型id',
+`price` decimal(10,2) unsigned NOT NULL DEFAULT '0.00' COMMENT '价格',
+`note` text CHARACTER SET utf8 COMMENT '描述',
+`status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '状态(-1删除,0禁用,1正常)',
+`create_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
+`update_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '修改时间',
+		PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='瓷像';
+
+
+CREATE TABLE `services` (
+`id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '编号',
+`name` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '瓷像别名',
+`type_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '服务类型id',
+`price` decimal(10,2) unsigned NOT NULL DEFAULT '0.00' COMMENT '价格',
+`note` text CHARACTER SET utf8 COMMENT '描述',
+`is_change_price` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否可调价，0否，1是',
+`status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '状态(-1删除,0禁用,1正常)',
+`create_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
+`update_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '修改时间',
+		PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='服务';
+
+
+
+CREATE TABLE `grave` (
+`id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '编号',
+`garden_id`int(11) unsigned NOT NULL DEFAULT '0' COMMENT '园id',
+`area_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '区id',
+`rows_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '排id',
+`grave_type_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '墓型id',
+`cave_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '墓穴id',
+`burial_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '安葬方式id',
+`name` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '名称',
+`now_type` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '先墓位状态1墓位，2树木',
+`is_charge` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '是否收费，1是，2否',
+`price` decimal(10,2) unsigned NOT NULL DEFAULT '0.00' COMMENT '价格',
+`note` text CHARACTER SET utf8 COMMENT '描述',
+`stage` tinyint(1) NOT NULL DEFAULT '1' COMMENT '墓位状态(1在售，2已预留，3已预订，4已销售，5已迁出,6已落葬，7禁售)',
+`status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '数据状态(-1删除,0禁用,1正常)',
+`create_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
+`update_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '修改时间',
+		PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='墓位';
+
+
+CREATE TABLE `grave_type` (
+`id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '编号',
+`name` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '名称',
+`shicai_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '石材属性id',
+`fushou_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '扶手属性id',
+`zhubei_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '主碑id',
+`taobei_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '套碑id',
+`weilan_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '围栏id',
+`burial_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '安葬方式id',
+`out_width` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '外形宽度',
+`out_height` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '外形高度',
+`out_length` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '外形长度',
+`in_width` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '内形宽度',
+`int_height` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '内形高度',
+`int_length` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '内形长度',
+`price` decimal(10,2) unsigned NOT NULL DEFAULT '0.00' COMMENT '价格',
+`supplier_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '供应商id',
+`note` text CHARACTER SET utf8 COMMENT '描述',
+`status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '数据状态(-1删除,0禁用,1正常)',
+`create_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
+`update_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '修改时间',
+		PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='墓型表';
+
+
+CREATE TABLE `supplier` (
+`id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '编号',
+`name` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '名称',
+`address` text CHARACTER SET utf8 COMMENT '地址',
+`note` text CHARACTER SET utf8 COMMENT '描述',
+`status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '数据状态(-1删除,0禁用,1正常)',
+`create_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
+`update_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '修改时间',
+		PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='供应商表';
+
+
+
+CREATE TABLE `grave_card` (
+`id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '编号',
+`customer_id` int(11) UNSIGNED NOT NULL DEFAULT '0' COMMENT '客户id',
+`grave_id` int(11) UNSIGNED NOT NULL DEFAULT '0' COMMENT '墓位id',
+`grave_name` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '墓位名称',
+`type` tinyint(1) NOT NULL DEFAULT '1' COMMENT '类型(1新用户办理,2到期续办,3挂失补办)',
+`code` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '编码',
+`start_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '开始时间',
+`end_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '结束时间',
+`price` decimal(10,2) unsigned NOT NULL DEFAULT '0.00' COMMENT '价格',
+`note` text CHARACTER SET utf8 COMMENT '描述',
+`status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '数据状态(-1删除,0禁用,1正常)',
+`create_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
+`update_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '修改时间',
+		PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='墓权证表';
+
+
+CREATE TABLE `config` (
+`id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '编号',
+`name` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '名称',
+`code` varchar(20) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '识别码',
+`value` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '值',
+`parent_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '上级id',
+`price` decimal(10,2) unsigned NOT NULL DEFAULT '0.00' COMMENT '价格',
+`note` text CHARACTER SET utf8 COMMENT '描述',
+`sort` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '排序',
+`status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '状态(-1删除,0禁用,1正常)',
+`create_time` datetime NOT NULL COMMENT '创建时间',
+`update_time` datetime NOT NULL COMMENT '修改时间',
+		PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='配置表';
+
+
+CREATE TABLE `trading` (
+`id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '编号',
+`grave_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '墓位id',
+`grave_name` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '墓位名称',
+`customer_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '客户id',
+`customer_name` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '客户名称',
+`sell_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '销售时间',
+`code` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '合同编码',
+`amount` decimal(10,2) unsigned NOT NULL DEFAULT '0.00' COMMENT '总价',
+`seller_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '销售id',
+`seller_name` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '销售名称',
+`create_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建id',
+`create_name` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '销售名称',
+`note` text CHARACTER SET utf8 COMMENT '描述',
+`is_recommend` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '收费打折0否，1是',
+`recommend_type` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '折扣类型,0否,1折扣,2现金',
+`order_type` tinyint(2) NOT NULL DEFAULT '0' COMMENT '订单类型1墓位，2服务，3瓷像，4碑文，5商品，6维修，7迁出，8管理费，9墓权证',
+`sell_grave_type` tinyint(2) NOT NULL DEFAULT '0' COMMENT '墓位销售类型1预留，2预定，3销售',
+`stage` tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT '订单状态1创建成功,2待打折,3待收款,4已收款',
+`status` tinyint(2) NOT NULL DEFAULT '1' COMMENT '数据状态(-1删除,1正常)',
+`create_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
+`update_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '修改时间',
+		PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='订单表';
+
+
+CREATE TABLE `trading_price` (
+`id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '编号',
+`trading_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '订单id',
+`price` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '价格',
+`type` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '价格类型1墓位价,2管理费,3墓证费,4折扣费,5续费,6维修费,7迁出费,8安葬费，9合墓费，10定金',
+`create_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
+`update_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '修改时间',
+		PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='订单价格详细表';
+
+
+CREATE TABLE `trading_product` (
+`id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '编号',
+`trading_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '订单id',
+`product_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '商品id',
+`product_name` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '商品名称',
+`price` decimal(10,2) unsigned NOT NULL DEFAULT '0.00' COMMENT '价格',
+`number` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '数量',
+`is_free` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否免费0否，1是',
+`user_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '使用时间',
+`buy_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '购买时间',
+`create_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
+`update_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '修改时间',
+		PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='订单商品表';
+
+
+CREATE TABLE `trading_service` (
+`id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '编号',
+`trading_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '订单id',
+`service_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '服务id',
+`service_name` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '服务名称',
+`price` decimal(10,2) unsigned NOT NULL DEFAULT '0.00' COMMENT '价格',
+`discuss_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '预约时间',
+`buy_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '购买时间',
+`stage` tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT '执行状态',
+`create_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
+`update_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '修改时间',
+		PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='订单服务表';
+
+
+CREATE TABLE `trading_vitrotype` (
+`id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '编号',
+`trading_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '订单id',
+`vitrotype_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '瓷像id',
+`vitrotype_name` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '瓷像名称',
+`price` decimal(10,2) unsigned NOT NULL DEFAULT '0.00' COMMENT '价格',
+`discuss_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '预约时间',
+`buy_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '购买时间',
+`stage` tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT '执行状态',
+`create_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
+`update_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '修改时间',
+		PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='订单瓷像表';
+
+
+CREATE TABLE `trading_quit` (
+`id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '编号',
+`trading_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '订单id',
+`discuss_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '预约时间',
+`stage` tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT '执行状态',
+`create_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
+`update_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '修改时间',
+		PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='订单迁出表';
+
+
+CREATE TABLE `trading_fix` (
+`id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '编号',
+`trading_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '订单id',
+`discuss_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '预约时间',
+`stage` tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT '执行状态',
+`create_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
+`update_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '修改时间',
+		PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='订单维修表';
+
+
+CREATE TABLE `trading_deader` (
+`id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '编号',
+`trading_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '订单id',
+`deader_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '逝者id',
+`deader_name` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '逝者名称',
+`discuss_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '预约时间',
+`buy_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '购买时间',
+`is_tomb` tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT '是否立碑，0否，1是',
+`is_merge` tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT '是否合墓，0否，1是',
+`is_bury` tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT '是否安葬，0否，1是',
+`bury_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '安葬方式id',
+`stage` tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT '执行状态',
+`create_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
+`update_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '修改时间',
+		PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='订单逝者表';
+
+
+CREATE TABLE `trading_inscription` (
+`id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '编号',
+`trading_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '订单id',
+`deader_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '逝者id',
+`deader_name` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '逝者名称',
+`discuss_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '预约时间',
+`buy_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '购买时间',
+`html` text CHARACTER SET utf8 COMMENT '碑文内容',
+`stage` tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT '执行状态',
+`create_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
+`update_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '修改时间',
+		PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='订单碑文表';
+
+
+CREATE TABLE `trading_execer` (
+`id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '编号',
+`trading_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '订单id',
+`exec_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '执行人id',
+`exec_name` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '执行人名称',
+`exec_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '执行时间',
+`note` text CHARACTER SET utf8 COMMENT '描述',
+`stage` tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT '执行状态',
+`create_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
+`update_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '修改时间',
+		PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='订单执行人表';
+
+
+CREATE TABLE `trading_card` (
+`id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '编号',
+`type` tinyint(1) NOT NULL DEFAULT '1' COMMENT '类型(1新用户办理,2到期续办,3挂失补办)',
+`code` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '编码',
+`start_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '开始时间',
+`end_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '结束时间',
+`create_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
+`update_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '修改时间',
+		PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='订单墓权证表';
+
+
+CREATE TABLE `trading_manage` (
+`id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '编号',
+`year` int(11) NOT NULL DEFAULT '0' COMMENT '管理费年限',
+`start_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '开始时间',
+`end_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '结束时间',
+`expire_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '到期时间',
+`create_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
+`update_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '修改时间',
+		PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='订单管理费表';
