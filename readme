@@ -1,0 +1,31 @@
+===========================================start  window+nginx+php+mysql  ==============================================
+
+1.安装wamp,比如按到D盘根目录;
+2.解压nginx压缩包,里面包含ngix和php,把压缩包里的nginx放入wamp\bin下，把php7.0.8放入wamp\bin\php；
+3.修改wamp\bin\nginx-1.8.1下start.bat，把里面的路径换成自己存放nginx的路径;(注意一个是php路径，一个是nginx路径)
+4.修改wamp\bin\nginx-1.8.1\conf\nginx.conf，把include路径改为自己路径；
+5.修改wamp\bin\nginx-1.8.1\vhots\site1.conf，本文件为网站虚拟主机配置，改为自己路径和域名;（若创建多个域名，则复制此文件）
+6.开机启动start.bat即可。
+
+
+注：1.开机启动start.bat意思是启动nginx，wamp安装完后apache就没用了，用的是mysql和php;
+    2.nginx用的是php7,若要用php5，复制一份start.bat改下里面的路径，指向php5路径即可。
+	
+===========================================end  window+nginx+php+mysql  ==============================================
+
+
+
+
+
+
+===========================================start  linux+nginx+php+mysql  ==============================================
+
+1.wget -c http://lamp.phpstudy.net/phpstudy.bin
+  chmod +x phpstudy.bin    #权限设置
+  ./phpstudy.bin 　　　　#运行安装
+（参考http://www.phpstudy.net/a.php/203.html）。
+
+
+2.参考http://lnmp.org/install.html
+
+===========================================end  linux+nginx+php+mysql  ==============================================
