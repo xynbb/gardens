@@ -399,3 +399,38 @@ CREATE TABLE `supplier` (
     `update_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
     PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='供应商表';
+
+
+CREATE TABLE `product_category` (
+    `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '编号',
+    `name` varchar(100) NOT NULL DEFAULT '' COMMENT '名称',
+    `parent_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '父id',
+    `sort` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '排序',
+    `note` text CHARACTER SET utf8 COMMENT '描述',
+    `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '数据状态(-1删除,0禁用,1正常)',
+    `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
+    `update_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
+    PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='商品分类表';
+
+
+CREATE TABLE `product` (
+    `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '编号',
+    `name` varchar(255) NOT NULL DEFAULT '' COMMENT '名称',
+    `code` varchar(100) NOT NULL DEFAULT '' COMMENT '编号',
+    `category_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '分类id',
+    `in_price` decimal(10,2) unsigned NOT NULL DEFAULT '0.00' COMMENT '进价',
+    `sell_price` decimal(10,2) unsigned NOT NULL DEFAULT '0.00' COMMENT '销售价',
+    `unit` varchar(20) NOT NULL DEFAULT '' COMMENT '单位',
+    `supplier_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '分供应商id',
+    `limit_quantity` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '库存下限',
+    `type` tinyint(1) NOT NULL DEFAULT '1' COMMENT '类别1外部，2内部',
+    `image_url` varchar(255) NOT NULL DEFAULT '' COMMENT '图片地址',
+    `sort` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '排序',
+    `note` text CHARACTER SET utf8 COMMENT '描述',
+    `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '数据状态(-1删除,0禁用,1正常)',
+    `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
+    `update_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
+    PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='商品表';
+
