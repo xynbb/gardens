@@ -47,7 +47,7 @@ class Author {
 	protected $_roles = NULL;
 	protected $_privileges = NULL;
 	protected $_config = array();
-	protected $_host = 'http://gvs.dev.gomeplus.com';
+	protected $_host = 'http://www.lingyuan.com';
 
 	public function __construct(array $config = NULL) {
 		if ($config === NULL) {

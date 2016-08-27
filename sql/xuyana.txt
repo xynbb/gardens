@@ -96,6 +96,7 @@ CREATE TABLE `garden` (
     `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '编号',
     `name` varchar(50) NOT NULL DEFAULT '' COMMENT '名称',
     `sort` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '排序',
+    `type` tinyint(2) unsigned DEFAULT '0' COMMENT '类型0墓位，1寄存位',
     `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '状态(-1删除,0禁用,1正常)',
     `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
     `update_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
@@ -107,6 +108,7 @@ CREATE TABLE `area` (
     `garden_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '园id',
     `name` varchar(50) NOT NULL DEFAULT '' COMMENT '名称',
     `sort` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '排序',
+    `type` tinyint(2) unsigned DEFAULT '0' COMMENT '类型0墓位，1寄存位',
     `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '状态(-1删除,0禁用,1正常)',
     `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
     `update_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
@@ -119,6 +121,7 @@ CREATE TABLE `rows` (
     `area_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '区id',
     `name` varchar(50) NOT NULL DEFAULT '' COMMENT '名称',
     `sort` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '排序',
+    `type` tinyint(2) unsigned DEFAULT '0' COMMENT '类型0墓位，1寄存位',
     `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '状态(-1删除,0禁用,1正常)',
     `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
     `update_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
@@ -433,4 +436,165 @@ CREATE TABLE `product` (
     `update_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
     PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='商品表';
+
+
+
+
+CREATE TABLE `warehouse` (
+    `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '编号',
+    `name` varchar(255) NOT NULL DEFAULT '' COMMENT '名称',
+    `code` varchar(100) NOT NULL DEFAULT '' COMMENT '编号',
+    `parent_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '父亲仓库id',
+    `is_default` tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT '是否默认0否,1是',
+    `sort` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '排序',
+    `note` text CHARACTER SET utf8 COMMENT '描述',
+    `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '数据状态(-1删除,0禁用,1正常)',
+    `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
+    `update_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
+    PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='仓库表';
+
+
+CREATE TABLE `warehouse_log` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `in_warehouse_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '入库仓库id',
+  `in_warehouse_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '入库仓库名称',
+  `out_warehouse_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '出库仓库id',
+  `out_warehouse_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '出库仓库名称',
+  `product_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '商品id',
+  `product_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '商品名称',
+  `in_price` decimal(10,2) unsigned NOT NULL DEFAULT '0.00' COMMENT '入库价格',
+  `out_price` decimal(10,2) unsigned NOT NULL DEFAULT '0.00' COMMENT '销售价格',
+  `number` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '数量',
+  `type` tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT '类别0外部,1内部',
+  `use_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '领用人id',
+  `use_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '领用人名称',
+  `note` text CHARACTER SET utf8 COMMENT '描述',
+  `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `update_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='出库入库调拨记录表';
+
+
+CREATE TABLE `deposit` (
+	`id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '编号',
+	`name` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '名称',
+	`price` decimal(10,2) unsigned NOT NULL DEFAULT '0.00' COMMENT '价格',
+	`type` tinyint(1) NOT NULL DEFAULT '1' COMMENT '类型1临时2长期3永久',
+	`sort` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '排序',
+	`status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '数据状态(-1删除,0禁用,1正常)',
+	`create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
+	`update_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
+	PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='寄存位';
+
+
+CREATE TABLE `customer_deposit` (
+	`id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '编号',
+	`deposit_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '墓位id',
+	`customer_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '客户id',
+	`name` varchar(50) NOT NULL DEFAULT '' COMMENT '客户姓名',
+	`manager_start_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '管理费开始时间',
+	`manager_end_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '管理费结束时间',
+	`create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
+	`update_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
+	PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='客户寄存位表';
+
+
+CREATE TABLE `audit_category` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `name` varchar(50) NOT NULL DEFAULT '' COMMENT '名称',
+  `controller` varchar(100) NOT NULL DEFAULT '' COMMENT '对应的方法名称',
+  `action` varchar(100) NOT NULL DEFAULT '' COMMENT '对应方法名',
+  `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '状态 -1删除 0启用 1停用',
+  `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `update_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='流程分类表';
+
+
+CREATE TABLE `audit_node` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `name` varchar(50) NOT NULL DEFAULT '' COMMENT '名称',
+  `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '状态 -1删除 0启用 1停用',
+  `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `update_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='流程节点表';
+
+
+CREATE TABLE `audit_node_relation` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `node_category_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '节点分类',
+  `node_id` int(10) NOT NULL DEFAULT '0' COMMENT '节点id',
+  `parent_node_id` int(10) NOT NULL DEFAULT '0' COMMENT '上级节点id',
+  `return_node_id` int(10) NOT NULL DEFAULT '0' COMMENT '拒绝后返回节点id',
+  `is_must` tinyint(1) NOT NULL DEFAULT '1' COMMENT '是否为必要节点,1是，0否',
+  `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '状态 -1删除 0启用 1停用',
+  `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `update_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='节点关系表';
+
+
+CREATE TABLE `audit_notice` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `node_relation_id` int(10) NOT NULL DEFAULT '0' COMMENT '节点id',
+  `type` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '信息类型：0站内信,1邮件，2短信',
+  `msg_address` varchar(100) NOT NULL DEFAULT '' COMMENT '发送地址',
+  `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `update_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='节点消息通知表';
+
+
+CREATE TABLE `audit_user` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `node_relation_id` int(10) NOT NULL DEFAULT '0' COMMENT '节点id',
+  `user_id` int(10) NOT NULL DEFAULT '0' COMMENT '审批人id',
+  `user_name` varchar(100) NOT NULL DEFAULT '' COMMENT '审核人名称',
+  `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `update_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='节点审批人表';
+
+
+CREATE TABLE `audit_current` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `now_node_id` int(10) NOT NULL DEFAULT '0' COMMENT '当前节点id',
+  `now_node_name` varchar(100) NOT NULL DEFAULT '' COMMENT '当前节点名称',
+  `exec_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '执行时间',
+  `create_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建人id',
+  `create_name` varchar(100) NOT NULL DEFAULT '' COMMENT '创建人',
+  `desc` text NOT NULL COMMENT '备注',
+  `stage` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '状态1同意，2拒绝',
+  `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `update_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='当前执行表';
+
+
+CREATE TABLE `audit_log` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `category_id` int(10) NOT NULL DEFAULT '0' COMMENT '流程id',
+  `category_name` varchar(100) NOT NULL DEFAULT '' COMMENT '流程名称',
+  `now_node_id` int(10) NOT NULL DEFAULT '0' COMMENT '当前节点id',
+  `now_node_name` varchar(100) NOT NULL DEFAULT '' COMMENT '当前节点名称',
+  `exec_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '执行人id',
+  `exec_name` varchar(100) NOT NULL DEFAULT '' COMMENT '执行人',
+  `exec_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '执行时间',
+  `create_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建人id',
+  `create_name` varchar(100) NOT NULL DEFAULT '' COMMENT '创建人',
+  `desc` text NOT NULL COMMENT '备注',
+  `stage` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '状态1同意，2拒绝',
+  `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `update_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='执行日志表';
+
+
+
+
+
 

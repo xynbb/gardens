@@ -199,7 +199,7 @@ class Kohana_Request implements HTTP_Request {
 		{
 			$request = new Request($uri, $client_params, $allow_external, $injected_routes);
 		}
-		
+
 		return $request;
 	}
 

@@ -7,12 +7,12 @@ return array(
 	'mode'   => MCRYPT_MODE_NOFB,
 	
 	'ldap' => array(
-		'server' => '10.69.100.1',
-		'port' => '389',
-		'baseDN' => 'ou=美信,dc=meixin,dc=com', //DC (Domain Component) CN (Common Name) OU (Organizational Unit)
+		'server' => '127.0.0.1',
+		'port' => '3306',
+		'baseDN' => 'ou=lingyuan,dc=lingyuan,dc=com', //DC (Domain Component) CN (Common Name) OU (Organizational Unit)
 		'bindRDN' => '',
 		'password' => '',
-		'suffix' => '@gomeplus.com'
+		'suffix' => '@lingyuan.com'
 	),
 		
 	'database' => array(

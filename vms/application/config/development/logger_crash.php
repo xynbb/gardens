@@ -5,7 +5,7 @@ return array
 	(
 		'type'       => 'PDO',
 		'connection' => array(
-				'dsn'        => 'mysql:host=localhost;port=3306;dbname=test;charset=utf8',
+				'dsn'        => 'mysql:host=localhost;port=3306;dbname=kohana;charset=utf8',
 				'username'   => 'root',
 				'password'   => '',
 				'persistent' => FALSE,
