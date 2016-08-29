@@ -1,7 +1,7 @@
 <div class="panel panel-default">
 	<div class="panel-body">
 		<div class="row">
-			<div class="col-md-3 col-md-offset-9">
+			<div class="col-md-3">
 				<form action="<?php echo URL::site('account/list'); ?>" method="get">
 					<div class="input-group">
 						<input class="form-control" name="keyword" type="text" value="<?php echo isset($_GET['keyword']) ? $_GET['keyword'] : ''; ?>" placeholder="帐号ID/用户名/姓名"/>
@@ -61,7 +61,7 @@
 			</tbody>
 		</table>
 	</div>
-	<div class="panel-footer">
+	<div class="panel-footer" style="text-align: right;">
 		<div class="row">
 			<div class="col-md-12 left">
 				<?php echo $pagination; ?>

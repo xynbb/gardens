@@ -223,7 +223,7 @@ CREATE TABLE `gvs_grave_type` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='墓型表';
 
 
-DROP TABLE IF EXISTS gvs_config;
+DROP TABLE IF EXISTS gvs_setting;
 CREATE TABLE `gvs_config` (
     `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '编号',
     `name` varchar(50) NOT NULL DEFAULT '' COMMENT '名称',

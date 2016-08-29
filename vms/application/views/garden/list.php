@@ -23,22 +23,22 @@
       }
       echo "
         data.push({'id' : 'garden_{$garden->getId()}', 'name' : '{$garden->getName()}', 'value' : '{$garden->getId()}', 'parent' : '{$parent}', 'operate' : '".
-        " [ <a name=\"pop\" data-link=\"".URL::site('area/add?garden_id='.$garden->getId().'&type='.$parent)."\"> 添加区 </a>".
+        " <div style=\"margin-right:49%;width: 200px;float: right;\">[ <a name=\"pop\" data-link=\"".URL::site('area/add?garden_id='.$garden->getId().'&type='.$parent)."\"> 添加区 </a>".
           " [ <a name=\"pop\" data-link=\"".URL::site('garden/edit?id='.$garden->getId())."\"> 编辑 </a>".
-          " | <a onclick=\"Common.confirm(\'确定删除吗？\',\'".URL::site('garden/delete?id='.$garden->getId())."\');\">删除</a> ] ".
+          " | <a onclick=\"Common.confirm(\'确定删除吗？\',\'".URL::site('garden/delete?id='.$garden->getId())."\');\">删除</a> ]</div> ".
       "'});\r\n";
     }
     foreach($areas as $area){
       echo "data.push({'id':'area_{$area->getId()}', 'name':'{$area->getName()}', 'value':'{$garden->getId()}', 'parent':'garden_{$area->getGardenId()}', 'operate': '".
-          " [ <a name=\"pop\" data-link=\"".URL::site('rows/add?garden_id='.$area->getGardenId().'&area_id='.$area->getId().'&type='.$parent)."\"> 添加排 </a>".
+          " <div style=\"margin-right:47%;width: 200px;float: right;\">[ <a name=\"pop\" data-link=\"".URL::site('rows/add?garden_id='.$area->getGardenId().'&area_id='.$area->getId().'&type='.$parent)."\"> 添加排 </a>".
           " | <a name=\"pop\" data-link=\"".URL::site('area/edit?garden_id='.$area->getGardenId().'&type='.$parent.'&id='.$area->getId())."\">修改</a>".
-          " | <a onclick=\"Common.confirm(\'确定删除吗？\',\'".URL::site('area/delete?id='.$area->getId())."\');\">删除</a> ] ".
+          " | <a onclick=\"Common.confirm(\'确定删除吗？\',\'".URL::site('area/delete?id='.$area->getId())."\');\">删除</a> ]</div> ".
           "'});\r\n";
     }
     foreach($rows as $row){
       echo "data.push({'id':'row_{$row->getId()}', 'name':'{$row->getName()}', 'value':'{$row->getId()}', 'parent':'area_{$row->getAreaId()}', 'operate': '".
-          " [ <a name=\"pop\" data-link=\"".URL::site('rows/edit?area_id='.$row->getAreaId().'&type='.$parent.'&id='.$row->getId())."\">修改</a>".
-          " | <a onclick=\"Common.confirm(\'确定删除吗？\',\'".URL::site('rows/delete?id='.$row->getId())."\');\">删除</a> ] ".
+          " <div style=\"margin-right:45%;width: 200px;float: right;\">[ <a name=\"pop\" data-link=\"".URL::site('rows/edit?area_id='.$row->getAreaId().'&type='.$parent.'&id='.$row->getId())."\">修改</a>".
+          " | <a onclick=\"Common.confirm(\'确定删除吗？\',\'".URL::site('rows/delete?id='.$row->getId())."\');\">删除</a> ]</div> ".
           "'});\r\n";
     }
   }

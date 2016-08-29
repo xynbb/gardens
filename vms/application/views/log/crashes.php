@@ -2,7 +2,7 @@
   <div class="panel-body">
     <div class="row">
       <form action="<?php echo URL::site('log/crashes'); ?>" method="get">
-        <div class="col-md-3 col-md-offset-9">
+        <div class="col-md-3">
           <div class="input-group">
             <input class="form-control" name="keyword" type="text" value="<?php echo isset($_GET['keyword']) ? $_GET['keyword'] : ''; ?>" placeholder="文件名/消息/主机名/IP"/>
             <span class="input-group-btn">
@@ -49,7 +49,7 @@
       </tbody>
     </table>
   </div>
-  <div class="panel-footer">
+  <div class="panel-footer" style="text-align: right;">
     <div class="row">
       <div class="col-md-12 left">
         <?php echo $pagination; ?>

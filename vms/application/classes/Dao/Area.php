@@ -20,7 +20,8 @@ class Dao_Area extends Dao {
 		$select = DB::select('*')
 			->from($this->_tableName)
 			->where('status', '!=', -1)
-			->order_by('id', 'DESC');
+			->order_by('id', 'DESC')
+			->order_by('sort', 'ASC');
 		if(isset($condition['name']) && $condition['name'] != '') {
 			$select->where('id', '=', $condition['name']);
 			$select->or_where('name', '=', $condition['name']);

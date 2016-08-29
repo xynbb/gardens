@@ -30,62 +30,64 @@ class Controller_Render extends Controller {
 	}
 	
 	public function execute() {
-		// Execute the "before action" method
-		$this->before();
-		//Author::instance()->isLogin();
-		if($this->_checkLogin) {
-			if(!Author::instance()->isLogin()) {
-				// throw new Login_Exception('Not logged in.');
-				Controller::redirect('/author');
-			}
+		try{
+			// Execute the "before action" method
+			$this->before();
+			//Author::instance()->isLogin();
+			if($this->_checkLogin) {
+				if(!Author::instance()->isLogin()) {
+					// throw new Login_Exception('Not logged in.');
+					Controller::redirect('/author');
+				}
+				if(!ACL::access($this->request->controller(), $this->request->action())) {
+					$body = array(
+						'code' => 0,
+						'message' => '无权访问',
+						'data' => $this->_data = array(
+							'controller' => $this->request->controller(),
+							'action' => $this->request->action()
+							)
+					);
+					if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
 
-			if(!ACL::access($this->request->controller(), $this->request->action())) {
-				$body = array(
-					'code' => 0,
-					'message' => '无权访问',
-					'data' => $this->_data = array(
-						'controller' => $this->request->controller(),
-						'action' => $this->request->action()
-						)
-				);
-				if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+						Logger::write('/'.$this->request->controller().'/'.$this->request->action().'-'.$body['message']);
 
-					Logger::write('/'.$this->request->controller().'/'.$this->request->action().'-'.$body['message']);
+						if($this->_jsonp) {
+							$body = $this->_jsonp .'('. json_encode($body) .');';
+						} else {
+							$body = json_encode($body);
+						}
 
-					if($this->_jsonp) {
-						$body = $this->_jsonp .'('. json_encode($body) .');';
+						return $this->response->body($body);
 					} else {
-						$body = json_encode($body);
-					}
 
-					return $this->response->body($body);
-				} else {
-					
-					return Controller::redirect('/power?message='.urlencode(json_encode($body)));
+						return Controller::redirect('/power?message='.urlencode(json_encode($body)));
+					}
 				}
 			}
+
+			// Determine the action to use
+			$action = 'action_'.$this->request->action();
+
+			// If the action doesn't exist, it's a 404
+			if ( ! method_exists($this, $action)) {
+				throw HTTP_Exception::factory(404,
+						'The requested URL :uri was not found on this server.',
+						array(':uri' => $this->request->uri())
+				)->request($this->request);
+			}
+
+			// Execute the action itself
+			$this->{$action}();
+
+			// Execute the "after action" method
+			$this->after();
+
+			// Return the response
+			return $this->response;
+		} catch (Throwable $ex) {
+			echo $ex->getMessage();
 		}
-		
-		// Determine the action to use
-		$action = 'action_'.$this->request->action();
-		
-		// If the action doesn't exist, it's a 404
-		if ( ! method_exists($this, $action))
-		{
-			throw HTTP_Exception::factory(404,
-					'The requested URL :uri was not found on this server.',
-					array(':uri' => $this->request->uri())
-			)->request($this->request);
-		}
-		
-		// Execute the action itself
-		$this->{$action}();
-		
-		// Execute the "after action" method
-		$this->after();
-		
-		// Return the response
-		return $this->response;
 	}
 	
 	public function after() {
