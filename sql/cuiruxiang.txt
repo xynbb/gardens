@@ -28,6 +28,8 @@ CREATE TABLE `customer` (
   `addess` varchar(255) NOT NULL DEFAULT '' COMMENT '联系地址',
   `telephone` varchar(15) NOT NULL DEFAULT '' COMMENT '固定电话',
   `visit_num` tinyint(4) NOT NULL DEFAULT '0' COMMENT '来访人数',
+  `sale_man` int(11) NOT NULL DEFAULT '0' COMMENT '业务员id',
+  `sale_name` varchar(15) NOT NULL DEFAULT '' COMMENT '业务员名称',
   `source` tinyint(4) NOT NULL DEFAULT '0' COMMENT '客户来源',
   `talk` text NOT NULL COMMENT '洽谈记录',
   `is_del` tinyint(1) NOT NULL DEFAULT '1' COMMENT '-1 删除 1 正常',
